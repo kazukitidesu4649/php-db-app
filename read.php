@@ -1,5 +1,5 @@
 <?php
-  $dsn = 'mysql:dbname=php_db_app;host=localhost;charset=utf8mb4';
+  $dsn = 'mysql:dbname=php_db;host=localhost;charset=utf8mb4';
   $user = 'root';
   $password = 'root';
 
@@ -15,8 +15,8 @@
     // SQL文の実行結果を配列で取得する
     $products = $stmt_select->fetchAll(PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
-    echo ''. $e->getMessage();
-  }
+    exit($e->getMessage());
+}
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +49,7 @@
                     </div>
                     <a href="#" class="btn">商品登録</a>
                 </div>
-                <table>
+                <table class="products-table">
                     <tr>
                         <th>商品コード</th>
                         <th>商品名</th>
@@ -66,7 +66,7 @@
                             <td>{$product['product_name']}</td>
                             <td>{$product['price']}</td>
                             <td>{$product['stock_quantity']}</td>
-                            <td>{$product['vendor_code']}</td>
+                            <td>{$product['vender_code']}</td>
                             </tr>
                       ";
                       echo $table_row;
