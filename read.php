@@ -5,9 +5,20 @@
 
   try {
     $pdo = new PDO($dsn, $user, $password);
+    
+    //orderパラメータの値が存在すれば（並べ替えボタンを押したとき）、変数$orderに代入する
+    if (isset($_GET['order'])) {
+      $order = $_GET['order'];
+    } else {
+      $order = 'NULL';
+    }
 
-    // productsテーブルから全てのカラムのデータを取得する為のSQL分を変数$sqlに代入する
-    $sql_select = 'SELECT * FROM products';
+    // orderパラメータの値によってSQL文を変更する
+    if ($order == 'desc') {
+      $sql_select = 'SELECT * FROM products ORDER BY update_at DESC';
+    } else {
+      $sql_select = 'SELECT * FROM products ORDER BY update_at ASC';
+    }
 
     // SQL文を実行する
     $stmt_select = $pdo->query($sql_select);
@@ -46,6 +57,12 @@
                 <div class="products-ui">
                     <div>
                         <!-- 並び替えボタン　検索ボックス -->
+                         <a href="read.php?order=desc">
+                            <img src="images/desc.png" alt="降順に並び替え" class="sort-img">
+                         </a>
+                         <a href="read.php?order=asc">
+                            <img src="images/asc.png" alt="昇順に並び替え" class="sort-img">
+                         </a>
                     </div>
                     <a href="#" class="btn">商品登録</a>
                 </div>
