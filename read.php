@@ -84,7 +84,7 @@
                               <input type="text" class="search-box" placeholder="商品名で検索" name="keyword" value="<?= $keyword ?>">
                           </form>
                     </div>
-                    <a href="#" class="btn">商品登録</a>
+                    <a href="create.php" class="btn">商品登録</a>
                 </div>
                 <table class="products-table">
                     <tr>
