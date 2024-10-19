@@ -13,15 +13,31 @@
       $order = 'NULL';
     }
 
-    // orderパラメータの値によってSQL文を変更する
-    if ($order == 'desc') {
-      $sql_select = 'SELECT * FROM products ORDER BY update_at DESC';
+    // keywordパラメータの値が存在すれば、その値を変数$keywordに代入する
+    if (isset($_GET['keyword'])) {
+      $keyword = $_GET['keyword'];
     } else {
-      $sql_select = 'SELECT * FROM products ORDER BY update_at ASC';
+      $keyword = NULL;
     }
 
-    // SQL文を実行する
-    $stmt_select = $pdo->query($sql_select);
+    // orderパラメータの値によってSQL文を変更する
+    if ($order == 'desc') {
+      $sql_select = 'SELECT * FROM products WHERE product_name LIKE :keyword ORDER BY update_at DESC';
+    } else {
+      $sql_select = 'SELECT * FROM products WHERE product_name LIKE :keyword ORDER BY update_at ASC';
+    }
+
+    // SQL文を用意する
+    $stmt_select = $pdo->prepare($sql_select);
+
+    // SQLのLIKE句で使うため、変数keywordの前後を%で囲む(部分一致) *partial_match=部分一致
+    $partial_match = "%{$keyword}%";
+
+    //　bidValue()メソッドを使って実際の値をプレースホルダにバインドする（割り当てる）
+    $stmt_select->bindValue(':keyword', $partial_match, PDO::PARAM_STR);
+
+    // SQLを実行する
+    $stmt_select->execute();
 
     // SQL文の実行結果を配列で取得する
     $products = $stmt_select->fetchAll(PDO::FETCH_ASSOC);
@@ -57,12 +73,16 @@
                 <div class="products-ui">
                     <div>
                         <!-- 並び替えボタン　検索ボックス -->
-                         <a href="read.php?order=desc">
+                         <a href="read.php?order=desc&keyword=<?= $keyword ?>">
                             <img src="images/desc.png" alt="降順に並び替え" class="sort-img">
                          </a>
-                         <a href="read.php?order=asc">
+                         <a href="read.php?order=asc&keyword=<?= $keyword ?>">
                             <img src="images/asc.png" alt="昇順に並び替え" class="sort-img">
                          </a>
+                          <form action="read.php" method="get" class="search-form">
+                              <input type="hidden" name="order" value="<?= $order ?>">
+                              <input type="text" class="search-box" placeholder="商品名で検索" name="keyword" value="<?= $keyword ?>">
+                          </form>
                     </div>
                     <a href="#" class="btn">商品登録</a>
                 </div>
@@ -97,4 +117,3 @@
         <p class="copyright">&copy; 商品管理アプリ All rights reserved.</p>
     </footer>
 </body>
-
