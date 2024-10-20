@@ -1,5 +1,5 @@
 <?php
-  $dsn = 'mysql:dbname=php_db;host=localhost;charset=utf8mb4';
+  $dsn = 'mysql:dbname=php_db_app;host=localhost;charset=utf8mb4';
   $user = 'root';
   $password = 'root';
 
@@ -22,9 +22,9 @@
 
     // orderパラメータの値によってSQL文を変更する
     if ($order == 'desc') {
-      $sql_select = 'SELECT * FROM products WHERE product_name LIKE :keyword ORDER BY update_at DESC';
+      $sql_select = 'SELECT * FROM products WHERE product_name LIKE :keyword ORDER BY updated_at DESC';
     } else {
-      $sql_select = 'SELECT * FROM products WHERE product_name LIKE :keyword ORDER BY update_at ASC';
+      $sql_select = 'SELECT * FROM products WHERE product_name LIKE :keyword ORDER BY updated_at ASC';
     }
 
     // SQL文を用意する
@@ -70,6 +70,12 @@
     <main>
           <article class="products">
                 <h1>商品一覧</h1>
+                  <?php
+                    // 商品の登録・編集・削除後 messageパラメータの値を受け取っていれば、それを表示する
+                    if (isset($_GET['message'])) {
+                      echo "<p class='success'>{$_GET['message']}</p>";
+                    }
+                  ?>
                 <div class="products-ui">
                     <div>
                         <!-- 並び替えボタン　検索ボックス -->
@@ -103,7 +109,7 @@
                             <td>{$product['product_name']}</td>
                             <td>{$product['price']}</td>
                             <td>{$product['stock_quantity']}</td>
-                            <td>{$product['vender_code']}</td>
+                            <td>{$product['vendor_code']}</td>
                             </tr>
                       ";
                       echo $table_row;
