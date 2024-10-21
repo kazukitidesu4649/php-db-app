@@ -100,6 +100,7 @@
                         <th>在庫数</th>
                         <th>仕入先コード</th>
                         <th>編集</th>
+                        <th>削除</th>
                     </tr>
                     <?php
                     // 配列の出力 foreach
@@ -112,6 +113,7 @@
                             <td>{$product['stock_quantity']}</td>
                             <td>{$product['vendor_code']}</td>
                             <td><a href='update.php?id={$product['id']}'><img src='images/edit.png' alt='編集' class='edit-icon'></a></td>
+                            <td><a href='delete.php?id={$product['id']}'><img src='images/delete.png' alt='削除' class='delete-icon'></a></td>
                             </td>
                             </tr>
                       ";
