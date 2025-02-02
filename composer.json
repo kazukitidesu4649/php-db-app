@@ -1,0 +1,7 @@
+{
+  "name": "product-app-20241031",
+  "description": "A sample PHP app for Heroku",
+  "require": {
+      "php": "^8.0"
+  }
+}
