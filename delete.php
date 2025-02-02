@@ -1,8 +1,8 @@
 <?php
-$dsn = 'mysql:noamzci541q2nl53;host=cxmgkzhk95kfgbq4.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306;charset=utf8mb4';
-$user = 'd1vtsxhcybyxi94j';
+$dsn = 'mysql:dbname=znz5i0a0qels8ho0;host=cxmgkzhk95kfgbq4.cbetxkdyhwsb.us-east-1.rds.amazonaws.com;charset=utf8mb4';
+$user = 'jrsx40wb3ws0aj6l';
 // MAMPを利用しているMacユーザーの方は、''ではなく'root'を代入してください
-$password = 't1g9d00amaohaxat';
+$password = 'f5sl6n9lhw443yfs';
 
 try {
   $pdo = new PDO($dsn, $user, $password);
